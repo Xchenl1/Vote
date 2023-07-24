@@ -14,8 +14,7 @@ func New() *gin.Engine {
 	//定时器
 	go tools.TimerMiddleware()
 	//加载热点信息 定时器每三秒加载前三页书籍信息
-	//go tools.Cacheheating()
-
+	go tools.Cacheheating()
 	r := gin.Default()
 	r.Static("/view", "./view")
 	//登录模块
@@ -35,7 +34,6 @@ func New() *gin.Engine {
 		//游客可以浏览分类
 		r.GET("/categories", logic.SearchCategory)
 	}
-
 	//用户模块
 	user := r.Group("users")
 	//使用Token中间件 防止链接被多次点击

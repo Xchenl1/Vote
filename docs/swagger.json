@@ -9,6 +9,48 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
+        "/adminLogin": {
+            "post": {
+                "description": "执行管理员登录操作",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "管理员登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "pwd",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/tools.HttpCode"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/tools.HttpCode"
+                        }
+                    }
+                }
+            }
+        },
         "/administer/books": {
             "post": {
                 "description": "添加图书的信息",

@@ -116,7 +116,6 @@ func UserLogin(c *gin.Context) {
 //	@Param			pwd		formData	string	true	"密码"in:formData
 //	@response		200,500	{object}	tools.HttpCode
 //	@Router			/adminLogin [POST]
-
 func LibrarianLogin(c *gin.Context) {
 	//复用用户登录的代码
 	User1 := User{}

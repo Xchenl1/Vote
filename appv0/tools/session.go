@@ -6,6 +6,7 @@ import (
 	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/sessions"
+	"strconv"
 	"time"
 )
 
@@ -21,14 +22,18 @@ func GetSession(c *gin.Context) map[interface{}]interface{} {
 	return session.Values
 }
 
+// SetSession 相当于 []byte("小陈图书管理系统")是密钥  然后发送这个会话的唯一编码
 func SetSession(c *gin.Context, name string, id int64) error {
 	//配置session中redis中的生存周期24小时的生存周期
 	store.Options(sessions2.Options(sessions.Options{
 		MaxAge: int(24 * time.Hour / time.Second),
 	}))
-	session, _ := store.Get(c.Request, sessionName)
+	//session-name 放在header头部时 会进行加密 []byte("小陈图书管理系统")是密钥 会进行解密
+	session, _ := store.Get(c.Request, sessionName+strconv.Itoa(int(id)))
+	fmt.Println(session)
 	session.Values["name"] = name
 	session.Values["id"] = id
+	//fmt.Println(session)
 	return session.Save(c.Request, c.Writer)
 }
 

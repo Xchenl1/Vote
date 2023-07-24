@@ -39,6 +39,34 @@ info:
   title: 图书管理系统API
   version: "1.0"
 paths:
+  /adminLogin:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 执行管理员登录操作
+      parameters:
+      - description: 用户名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: pwd
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tools.HttpCode'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/tools.HttpCode'
+      summary: 管理员登录
+      tags:
+      - login
   /administer/books:
     post:
       description: 添加图书的信息
